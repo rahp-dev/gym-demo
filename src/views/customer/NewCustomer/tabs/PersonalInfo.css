@@ -1,0 +1,9 @@
+.elber :is([dir='ltr'] .input-suffix-start) {
+  left: 0 !important;
+}
+
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */

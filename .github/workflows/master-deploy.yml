@@ -1,0 +1,29 @@
+name: deploy on digital ocean branch master
+on:
+  push:
+    branches:
+      - master
+  pull_request_review:
+    types: [submitted]
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy React App
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd divina-laser/divina-laser
+            git checkout .
+            git pull origin master
+            export NODE_OPTIONS="--max-old-space-size=6144"
+            yarn
+            yarn build
